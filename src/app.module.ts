@@ -6,27 +6,31 @@ import { GenresModule } from './genres/genres.module';
 import { ActorsModule } from './actors/actors.module';
 import { Genre } from './genres/entities/genre/genre';
 import { Actor } from './actors/entities/actor/actor';
-import { MoviesService } from './movies/movies.service';
-import { MoviesController } from './movies/movies.controller';
 import { MoviesModule } from './movies/movies.module';
 import { Movie } from './movies/entities/movie/movie';
+import { ConfigModule } from '@nestjs/config';
 
+
+console.log(process.env.DATABASE_PORT)
 @Module({
-  imports: [TypeOrmModule.forRoot({
+  imports: [
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRoot({
     type: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: 'postgres',
-    password: 'Walker0078.',
-    database: 'test_nestjs',
-    entities: [Genre, Actor, Movie],
-    synchronize: true,
-  }),
-  GenresModule,
-  ActorsModule,
-  MoviesModule,
+    host: process.env.DATABASE_HOST,
+    port: parseInt(process.env.DATABASE_PORT, 5432),
+    username: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_NAME,
+    synchronize: false,
+    entities: [Genre, Movie, Actor],
+    autoLoadEntities: true,
+    }),
+    GenresModule,
+    ActorsModule,
+    MoviesModule
   ],
-  providers: [AppService],
-  controllers: [AppController]
+    controllers: [AppController],
+    providers: [AppService],
 })
 export class AppModule {}

@@ -19,17 +19,17 @@ export class MoviesController {
     }
 
     @Post()
-    create(@Body() movie: Movie){
-        return this.movieService.create(movie)
+    async create(@Body() movie: Movie){
+        return await this.movieService.create(movie)
     }
 
     @Put(':id')
-    update(@Param('id') id:number, @Body() movie: Movie): Promise<void>{
-        return this.movieService.update(id, movie)
+    update(@Param('id') id:number, @Body() movieData: Movie): Promise<Movie>{
+        return this.movieService.update(id, movieData)
     }
     
     @Delete(':id')
-    remove(@Param('id') id:number): Promise<void>{
+    remove(@Param('id') id:number): Promise<object>{
         return this.movieService.remove(id)
     }
 }

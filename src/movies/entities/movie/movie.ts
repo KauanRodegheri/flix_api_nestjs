@@ -13,7 +13,7 @@ export class Movie {
     @ManyToOne(() => Genre)
     genre: Genre
 
-    @ManyToMany(() => Actor)
+    @ManyToMany(() => Actor, actor => actor.movies)
     @JoinTable()
-    actors: Actor[]
+    actors: Actor[];
 }
