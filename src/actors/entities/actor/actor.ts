@@ -10,10 +10,13 @@ export class Actor {
     name: string
 
     @Column()
+    gender: string
+
+    @Column()
     dateofBirth: string
 
     @Column()
-    nacionality: string
+    nationality: string
 
     @ManyToMany(() => Movie, movie => movie.actors)
     movies: Movie[]

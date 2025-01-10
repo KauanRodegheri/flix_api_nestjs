@@ -22,12 +22,12 @@ export class GenresController {
     }
 
     @Put(':id')
-    update(@Param('id') id: number, @Body() genre:Genre): Promise<void>{
+    update(@Param('id') id: number, @Body() genre:Genre): Promise<object>{
         return this.genresService.update(id, genre)
     }
 
     @Delete(':id')
-    remove(@Param('id') id: number): Promise<void>{
+    remove(@Param('id') id: number): Promise<object>{
         return this.genresService.remove(id)
     }
 

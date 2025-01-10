@@ -23,12 +23,15 @@ export class GenresService {
         return this.genresRepository.save(genre)
     }
 
-    async update(id: number, genre: Genre): Promise<void>{
+    async update(id: number, genre: Genre): Promise<object>{
         await this.genresRepository.update(id, genre)
+        return genre
     }
 
-    async remove(id: number): Promise<void>{
-        console.log(id)
+    async remove(id: number): Promise<object>{
+        const object_id = this.genresRepository.findOne({where: {id: id}})
         await this.genresRepository.delete(id)
+        return {'message': `Excluido com sucesso o genêro: ${(await object_id).name}`,
+        }
     }
 }

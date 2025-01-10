@@ -27,10 +27,11 @@ export class MoviesService {
     }
 
     async create(movie: Movie): Promise<Movie>{
-        const {title, genre, actors} = movie;
+        const {id, title, genre, actors} = movie;
         const genres = await this.genreRepository.findOneBy(genre)
         const actors_ = await this.actorsRepository.find({where: {id: In(actors)}})
         const movie_ = movie
+        movie.id = id
         movie.title = title
         movie.genre = genres
         movie.actors = actors_

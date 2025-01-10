@@ -30,13 +30,8 @@ export class ActorsController {
     }
 
     @Delete(':id')
-    async remove(@Param('id') id: number): Promise<{'message': string}>{
-        try {
-            await this.actorsService.remove(id)
-            return {'message': "excluido com sucesso"}
-        }
-        catch {
-            return {'message': 'Não foi possivel excluir'}
-        }
+    async remove(@Param('id') id: number): Promise<object>{
+        return await this.actorsService.remove(id)
+        
     }
 }

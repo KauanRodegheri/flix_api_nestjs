@@ -27,7 +27,9 @@ export class ActorsService {
         await this.actorsRepository.update(id, actor)
     }
 
-    async remove(id: number): Promise<void>{
+    async remove(id: number): Promise<object>{
+        const object_remove = this.actorsRepository.findOne({where: {id: id}})
         await this.actorsRepository.delete(id)
+        return {'message': `excluido com sucesso o filme ${(await object_remove).name}`}
     }
 }
