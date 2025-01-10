@@ -14,11 +14,11 @@ import { ConfigModule } from '@nestjs/config';
 console.log(process.env.DATABASE_PORT)
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({isGlobal:true}),
     TypeOrmModule.forRoot({
-    type: 'postgres',
+    type: 'mysql',
     host: process.env.DATABASE_HOST,
-    port: parseInt(process.env.DATABASE_PORT, 5432),
+    port: parseInt(process.env.DATABASE_PORT, 3306),
     username: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_NAME,
