@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Genre } from './entities/genre/genre';
 import { Repository } from 'typeorm';
+import { GenreDTO } from './dto/genres-create-dto';
+import { UpdateGenreDto } from './dto/genres-update-dto';
 
 @Injectable()
 export class GenresService {
@@ -19,12 +21,13 @@ export class GenresService {
         return this.genresRepository.findOne({where: {id: id}})
     }
 
-    create(genre: Genre): Promise<Genre>{
-        return this.genresRepository.save(genre)
+    create(createGenreDto: GenreDTO): Promise<GenreDTO>{
+        return this.genresRepository.save(createGenreDto)
     }
 
-    async update(id: number, genre: Genre): Promise<object>{
-        await this.genresRepository.update(id, genre)
+    async update(id: number, updateGenreDto: UpdateGenreDto): Promise<object>{
+        await this.genresRepository.update(id, updateGenreDto)
+        const genre = this.genresRepository.findOne({where: {id: id}})
         return genre
     }
 
